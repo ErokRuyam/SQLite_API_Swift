@@ -50,7 +50,7 @@ public enum SQLiteErrorCode: Int {
 }
 
 //TODO: check if Foreign Key constraints setting is on/off. Shall we enforce the FK constraints?
-open class SQLiteManager: NSObject {
+open class SQLiteManager: RelationalPersistentStoreProvider {
     
     fileprivate var db: OpaquePointer?
     fileprivate var currentColumnCount: Int = 0 //The number of columns in the result set of the currently executed query.
