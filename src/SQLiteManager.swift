@@ -1,34 +1,10 @@
 //
 //  SQLiteManager.swift
+//  CoreClient
 //
 //  Created by Mayur on 04/10/17.
-//  Copyright © 2017 Mayur. All rights reserved.
+//  Copyright © 2017 Odocon. All rights reserved.
 //
-
-/*
-MIT License
-
-Copyright (c) 2017 Mayur Kore
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-*/
-
 
 import Foundation
 import SQLite3
@@ -36,9 +12,6 @@ import SQLite3
 let SQLITE_STATIC = unsafeBitCast(0, to: sqlite3_destructor_type.self)
 let SQLITE_TRANSIENT = unsafeBitCast(-1, to: sqlite3_destructor_type.self)
 let SQLITE_ERROR_DOMAIN = "SQLiteErrorDomain"
-
-//TODO: The class needs to conform to the RelationalPersistentStoreProvider protocol currently in the  codebase
-//Need to migrate frameowrk to common repository to be used by both - Vaultize, vDRM & any other app that comes down the line.
 
 public enum SQLiteErrorCode: Int {
     case sqliteError ///Generic error
@@ -56,6 +29,8 @@ open class SQLiteManager: RelationalPersistentStoreProvider {
     fileprivate var currentColumnCount: Int = 0 //The number of columns in the result set of the currently executed query.
     fileprivate var statement: OpaquePointer? //The prepared statment corresponding to the currently executed SQL query.
     public var dbError: NSError?
+    
+    public init() {}
     
     //Prepare an error object at a single place to be returned to the client of this class.
     func prepareError() {
